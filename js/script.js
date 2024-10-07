@@ -44,11 +44,13 @@ window.addEventListener("load", function() {
 });
 
 
-
-// ナビゲーションを押した際にスムーズにスクロールする動作
 document.addEventListener('DOMContentLoaded', function() {
     const navLinks = document.querySelectorAll('nav ul li a');
+    const navToggle = document.getElementById('nav-toggle');
+    const navigationMenu = document.getElementById('navigation-menu');
+    const body = document.body;
 
+    // スムーズスクロールの設定
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault(); // デフォルトのリンク動作を無効化
@@ -61,18 +63,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     behavior: 'smooth' // スムーズスクロール
                 });
             }
+
+            // ナビゲーションを非表示にする
+            navigationMenu.classList.remove('active');
+            body.style.overflow = 'auto'; // スクロールを元に戻す
         });
     });
-});
 
-
-
-// ナビゲーション画面を表示（表示中はスクロールを禁止）
-document.addEventListener('DOMContentLoaded', function() {
-    const navToggle = document.getElementById('nav-toggle');
-    const navigationMenu = document.getElementById('navigation-menu');
-    const body = document.body;
-
+    // ナビゲーションのトグル
     navToggle.addEventListener('click', function() {
         navigationMenu.classList.toggle('active');
 
@@ -84,22 +82,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    const navLinks = document.querySelectorAll('nav ul li a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href').substring(1);
-            const targetSection = document.getElementById(targetId);
-
-            if (targetSection) {
-                window.scrollTo({
-                    top: targetSection.offsetTop - 50,
-                    behavior: 'smooth'
-                });
-            }
-
+    // ナビゲーション外をクリックした際の処理
+    document.addEventListener('click', function(event) {
+        if (navigationMenu.classList.contains('active') && 
+            !navigationMenu.contains(event.target) && 
+            event.target !== navToggle) {
+            
             navigationMenu.classList.remove('active');
             body.style.overflow = 'auto'; // スクロールを元に戻す
-        });
+        }
     });
 });

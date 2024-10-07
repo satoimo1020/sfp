@@ -162,15 +162,16 @@ body {
 .navigation-menu {
     position: fixed;
     top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100vh; /* ビューの高さを100%に設定 */
+    left: 0;
+    width: 30%; /* ナビゲーションの幅を30%に設定 */
+    height: 100vh;
     background-color: rgba(0, 0, 0, 0.9);
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: left 0.3s ease;
-    z-index: 999;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 999; 
 }
 
 .navigation-menu nav ul {
@@ -178,8 +179,10 @@ body {
     text-align: center;
 }
 
+/* 各リストアイテムをブロック要素として表示 */
 .navigation-menu nav ul li {
     margin: 20px 0;
+    display: block; 
 }
 
 .navigation-menu nav ul li a {
@@ -188,9 +191,9 @@ body {
     text-decoration: none;
 }
 
-/* ナビゲーションメニューが表示されたとき */
+/* ナビゲーションメニューがアクティブになり、左から表示*/
 .navigation-menu.active {
-    left: 0;
+    transform: translateX(0); /* 左からスライドして表示 */
 }
 
 header {
@@ -327,27 +330,55 @@ html {
 }
 
 /* メディアクエリでレスポンシブ対応 */
+@media (max-width: 850px) {
+    .navigation-menu {
+        display: flex; 
+        width: 60%;
+    }
+}
+
 @media (max-width: 768px) {
     h1 {
-        font-size: 2em;
+        font-size: 2em; 
     }
 
     nav ul li {
         display: block;
-        margin: 10px 0;
+        margin: 15px 0;
     }
 
     .container {
-        width: 90%;
+        width: 100%;
+        padding: 10px;
+    }
+
+    .btn {
+        font-size: 1.1em; 
+        padding: 10px 20px; 
+    }
+
+    .section h2 {
+        font-size: 1.8em; 
+    }
+
+    .nav-toggle {
+        font-size: 1.5em; 
     }
 }
 
 @media (max-width: 480px) {
-    h1 {
-        font-size: 1.8em;
+    .navigation-menu {
+        width: 100%;
     }
 
-    .section h2 {
-        font-size: 1.8em;
+    .navigation-menu nav ul li a {
+        font-size: 1.9em; 
+        padding: 10px; 
+        text-align: center; 
+    }
+
+    .container {
+        width: 100%; 
+        padding: 15px; 
     }
 }
